@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import "./App.css"
 const F1Logo = () => (
@@ -76,9 +75,9 @@ const RaceInfo = () => (
 
 export default function App() {
     const streamEmbedUrl = import.meta.env.VITE_FORMULA_ONE_HD;
-    const streamJWPUrl =""
-    const streamHighCapacityUrl = ""
-    const streamLowUrl =""
+    // const streamJWPUrl =""
+    // const streamHighCapacityUrl = ""
+    // const streamLowUrl =""
     return (
         <div className="bg-black text-white min-h-screen font-sans relative">
             <div 
