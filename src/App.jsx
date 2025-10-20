@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion ,AnimatePresence} from 'framer-motion';
 import "./App.css"
+import { useState } from 'react';
 const F1Logo = () => (
     <svg fill="#E10600" width="100" height="70" viewBox="0 0 98.751 98.75" xmlns="http://www.w3.org/2000/svg">
         <g>
@@ -73,23 +74,64 @@ const RaceInfo = () => (
     </motion.div>
 );
 
+
+const StreamSwitcher = ({ streams, activeStream, onStreamChange }) => (
+    <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }}
+        className="flex justify-center my-6 space-x-2 md:space-x-4 bg-gray-900/50 p-2 rounded-lg max-w-md mx-auto"
+    >
+        {streams.map((stream) => (
+            <button
+                key={stream.name}
+                onClick={() => onStreamChange(stream)}
+                className={`px-4 py-2 text-sm md:text-base font-bold rounded-md transition-colors relative w-full ${
+                  activeStream.name === stream.name
+                    ? 'text-white'
+                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                }`}
+            >
+                {stream.name}
+                {activeStream.name === stream.name && (
+                    <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-600 rounded-full"
+                        layoutId="underline"
+                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    />
+                )}
+            </button>
+        ))}
+    </motion.div>
+);
+
 export default function App() {
-    const streamEmbedUrl = import.meta.env.VITE_FORMULA_ONE_HD;
-    // const streamJWPUrl =""
-    // const streamHighCapacityUrl = ""
-    // const streamLowUrl =""
+   const streams = [
+        { name: 'Stream 1', url: import.meta.env.VITE_FORMULA_ONE_HD },
+        { name: 'Stream 2', url: import.meta.env.VITE_FORMULA_ONE_JWP },
+        { name: 'Stream 3', url: import.meta.env.VITE_FORMULA_ONE_HCP },
+        { name: 'Low Res Stream', url: import.meta.env.VITE_FORMULA_ONE_SD }
+    ];
+    const [activeStream, setActiveStream] = useState(streams[0]);
     return (
-        <div className="bg-black text-white min-h-screen font-sans relative">
-            <div 
+         <div className="bg-black text-white min-h-screen font-sans relative overflow-x-hidden">
+            <div
                 className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-10"
-                style={{ backgroundImage: `url('https://photos.app.goo.gl/JKWwhoA3CQgLHW1C7')` }}
+                style={{ backgroundImage: `url('https://images.unsplash.com/photo-1608321683439-d13a1135b11e?q=80&w=2070&auto=format&fit=crop')` }}
             ></div>
-            
+
             <div className="relative z-10">
                 <Header />
-                <main className="pt-24 pb-12 px-4">
+                <main className="pt-24 md:pt-32 pb-12 px-4">
                     <RaceInfo />
-                    <VideoPlayer embedUrl={streamEmbedUrl} />
+                    <StreamSwitcher 
+                        streams={streams}
+                        activeStream={activeStream}
+                        onStreamChange={setActiveStream}
+                    />
+                    <AnimatePresence mode="wait">
+                        <VideoPlayer embedUrl={activeStream.url} />
+                    </AnimatePresence>
                 </main>
             </div>
         </div>
