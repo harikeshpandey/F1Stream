@@ -37,7 +37,8 @@ const Header = () => (
 );
 
 const VideoPlayer = ({ embedUrl }) => (
-    <motion.div 
+    <motion.div
+        key={embedUrl} 
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
@@ -50,6 +51,8 @@ const VideoPlayer = ({ embedUrl }) => (
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+
+            sandbox="allow-scripts allow-same-origin allow-presentation allow-fullscreen"
         ></iframe>
     </motion.div>
 );
