@@ -72,7 +72,7 @@ const RaceInfo = () => (
             />
             <span className="text-red-500 font-bold text-lg tracking-widest uppercase">LIVE</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white uppercase">Formula 1 Mexican Grand Prix</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-white uppercase">Formula 1 Brazilian Grand Prix</h1>
         <p className="text-gray-400 mt-2 text-lg">Live Event</p>
     </motion.div>
 );
