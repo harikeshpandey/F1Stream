@@ -110,8 +110,8 @@ const StreamSwitcher = ({ streams, activeStream, onStreamChange }) => (
 
 export default function App() {
    const streams = [
-       { name: 'Stream 1', url: import.meta.env.VITE_FORMULA_ONE_JWP },
-       { name: 'Stream 2', url: import.meta.env.VITE_FORMULA_ONE_HD },
+       { name: 'Stream 1', url: import.meta.env.VITE_FORMULA_ONE_HD },
+       { name: 'Stream 2', url: import.meta.env.VITE_FORMULA_ONE_JWP },
         { name: 'Stream 3', url: import.meta.env.VITE_FORMULA_ONE_HCP },
         { name: 'Low Res Stream', url: import.meta.env.VITE_FORMULA_ONE_SD }
     ];
